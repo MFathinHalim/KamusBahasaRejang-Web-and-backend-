@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kamus Rejang Kito</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <link rel = "icon" href = 
+"a.png" 
+	type = "image/x-icon">
+</head>
+<header class="card2">
+    <img src="a.png" style="height: auto;
+    max-height: 200px;
+    width: auto;
+    max-width: 200px;
+    box-shadow: none;
+    object-fit: contain;"/>
+    <h3>Kamus Rejang Kito!</h3>
+</header>
+<body>
+
+        <% data.forEach(element=> { %>
+            <form action="/search" method="post">
+                <input value="Taruh Kata Disini" name="value"/>
+            </form>
+            <article class="card2">
+                <form action="/ganti" method="post">
+                    <button type="submit"><%= element.textBahasa %></button>
+                </form>
+            
+                <h3 type="text" rows="6"readonly="true"
+                    placeholder="Type Here..." name="noteContent"
+                    value="<%= element.tj %>">
+                <%= element.tj %> 
+                </h3>
+                <h3 type="text" rows="6"readonly="true"
+                style="font-family: rlabel;"
+                placeholder="Type Here..." name="noteContent"
+                value="<%= element.jt %>">
+                <%= element.jt %> 
+            </h3>
+            
+        </article>
+        <% }) %>
+    <div class="card4">
+        <h3>Kamus Bacaan</h3>
+        <% notes.forEach(element=> { %>
+            <article class="card2">
+                <h3>Indonesia: <%= element.Indonesia %></h3>
+                <h3>Rejang: <%= element.Rejang %></h3>
+            </article>
+        <% }) %>
+
+    </div>
+
+</body>
+</html>

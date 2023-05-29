@@ -1,0 +1,238 @@
+@font-face {
+    font-family: rlabel;
+    src: url(bangkahulu.ttf);
+  
+  }
+    @media print {
+      html, body {
+         display: none;  /* hide whole page */
+      }
+  }
+  @import url(https://fonts.googleapis.com/css?family=Khula:700);
+  body {
+    /*font-family:'Courier New', Courier, monospace;*/
+    font-family:sans-serif;
+    color: #D65A31;
+    background-image: "assets/bg.jpeg";
+    background: #a93a39;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;    
+    text-align: center;
+  }
+  
+  .console-container {
+   
+    font-size:3vw;
+    text-align:center;
+    height:3vw;
+    color:#D65A31;
+    
+  }
+  h3, h4, h1{
+      color:#EEEEEE;
+  }
+  
+  .card {
+      background-color: #ff3300ee;
+      
+  }
+  
+  .card2 {
+      flex-grow: 1;
+      box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.8);
+      background-color:  #b96469;
+      border-radius: 24px;
+      padding: 10px;
+      
+      color: #F4D6D6;
+      margin-top: 20px;
+      margin: 20px;
+      
+  }
+  input {
+      border-color: none;
+      flex-grow: 1;
+      outline: none;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+      background-color: #b66c6d;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 2vw;
+      text-align: center;
+      width: 94%;
+      height: 200px;
+      border:none;
+      color: #F4D6D6;
+      margin-top: 20px;
+      margin: 20px;
+      transition: all .2s ease-in-out;
+      
+      
+    }
+  .card4 {
+      flex-grow: 1;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+      background-color: #b66c6d;
+      border-radius: 24px;
+      padding: 10px;
+      margin-top: 20px;
+      margin: 20px;
+      
+  }
+
+  
+  button{
+    border-color: none;
+    flex-grow: 1;
+    outline: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+    background-color: #b66c6d;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 2vw;
+    width: 96%;
+    height: 200px;
+    border:none;
+    color: #F4D6D6;
+    transition: all .2s ease-in-out;    
+  }
+  img:hover{
+      opacity:0.8;
+      -webkit-transform: scale(2);
+      -ms-transform: scale(2);
+      transform: scale(2);
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+  }
+  img:active{
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+  }
+  .imgland{
+      margin-top: 10px;
+      rotate : -90deg;
+        width: 15vw;
+        border-radius: 24px;
+        transition: all .2s ease-in-out;
+        
+    }
+    .imgland:hover{
+        opacity:0.8;
+        -webkit-transform: scale(2);
+      -ms-transform: scale(2);
+      transform: scale(2);
+    }
+    #fotosekolah{
+      margin-top:10px;
+      width: 50vw;
+  
+      border-radius: 24px;
+      transition: all .2s ease-in-out;
+  }
+  .container {
+      width: 800px;
+      border: 2px solid black;
+      margin: 0 auto;
+    }
+    
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+    }
+    
+    .box {
+      flex-basis: 25%;
+      text-align: center;
+      flex-grow: 1;
+  
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+      background-color: #414750;
+      border-radius: 24px;
+      margin-top: 20px;
+    }
+  a {
+      color:#D65A31;
+  }
+  #content {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  button:hover{
+      opacity:0.8;
+      transform: scale(1.1);
+  }
+  #logo{
+      box-shadow: 0 0px 0px 0 #15133c00;
+  }
+  img{
+      margin-top:10px;
+        width: 25vw;
+        border-radius: 24px;
+        transition: all .2s ease-in-out;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+        
+  }
+  
+  strong{
+      color:#D65A31;
+  }
+      
+  #oren{
+      color:orange;
+  }
+  button:active{transform: scale(0.9);}
+  @import url(https://fonts.googleapis.com/css?family=Khula:700);
+  @media screen and (max-width: 1146px) {
+      body {
+          font-size: 6vw;
+      }
+      
+      header{
+          font-size: 6vw;
+      }
+      
+      img{
+          width: 25vw;
+      }
+      button{
+          font-size:6vw;
+      }
+  }
+   @media screen and (min-width: 1146px){
+      img:hover{
+          opacity:0.8;
+          -webkit-transform: scale(1.5);
+          -ms-transform: scale(1.5);
+          transform: scale(1.5);
+      }
+      #fotosekolah{
+          width: 60vw;
+      }
+      img{
+          width: 10vw;
+      }
+      body {
+          font-size: 2vw;
+      }
+      button{
+          font-size:1.5vw;
+      }
+      header{
+          font-size: 2vw;
+      }
+      img{
+          width: 15vw;
+      }
+  
+      button:active{transform: scale(0.9);}
+   }
