@@ -19,6 +19,7 @@ const db = new sqlite3.Database("./aset/database.db", sqlite3.OPEN_READWRITE, (e
 
 
 var notes = [];
+mainModel.find({}, null, { sort: { like: -1 } }).then(docs => notes = docs)
 
 /*() 
 
@@ -61,7 +62,48 @@ app.get("/", function (req, res) {
         notes: notes
 	})
 })
+app.get("/database", function (req, res) {
 
+	res.render("database", {
+		data: notes
+	})
+})
+/**
+ * @param {mainModel} model 
+ */
+const badWordsString = process.env.katakasar;
+const badWords = badWordsString.split(',');
+
+
+async function post(data, Indonesia, Rejang) {
+    try {
+      // Validasi kata kasar
+      const containsBadWord = badWords.some(word => {
+        const regex = new RegExp(`\\b${word}\\b`, "i");
+        return regex.test(Indonesia) || regex.test(Rejang);
+      });
+  
+      if (Indonesia.trim() !== "" && Rejang.trim() !== "" && !containsBadWord) {
+        // TODO: Tambahkan posting ke database terlebih dahulu.
+        await mainModel.create({ Indonesia, Rejang });
+        data.unshift({ Indonesia, Rejang });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  
+
+  app.post("/post-database", async function (req, res) {
+    // Assign values from request body
+    const Indonesia = req.body.Indonesia;
+    const Rejang = req.body.Rejang;
+
+    // Call the function
+    await post(notes, Indonesia, Rejang);
+
+    res.redirect("/database");
+});
 
 
 app.post("/search", (req, res) => {
