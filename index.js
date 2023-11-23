@@ -58,7 +58,6 @@ mainModel.find({}, '_id Indonesia Rejang')
     .then(docs => {
         // Now the 'notes' array will contain objects with '_id', 'Indonesia', and 'Rejang' fields
         notes = docs;
-        console.log(notes)
     })
     .catch(error => {
         console.error(error);
@@ -142,7 +141,6 @@ app.post("/edit/:id", async function(req, res) {
 
         console.log(existingDataIndex);
         console.log(existingData);
-        console.log(notes)
         res.redirect("/database");
 
     } catch (error) {
@@ -291,6 +289,7 @@ mongoose.connect(uri, {
   .then(() => {
     app.listen(8080, (req, res) => {
       Host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0'
+      console.log("SERVER SUDAH BERJALAN")
     })
   })
   .catch((error) => {
