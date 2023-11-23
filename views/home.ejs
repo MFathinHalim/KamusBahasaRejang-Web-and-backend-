@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kamus Rejang Kito</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+    <link rel="icon" href="../../a.png" type="image/x-icon">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
+    <%- include('header.ejs') -%>
+    <script>
+      console.log("%c Made by M.Fathin Halim", "color: blue;")
+    </script>
+    <style>
+        @font-face {
+            font-family: rlabel;
+            src: url(../../bangkahulu.ttf);
+          
+          }
+    </style>
+
+<main class="container mt-4">
+    <h3 class="center-heading" style="font-family:'Montserrat'"><img src="../../a.png" width="50" height="50" class="d-inline-block align-top" alt="Logo"> Kamus Rejang Kito!</h3>
+  <br>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" autocomplete="off" onkeydown="if(event.key === 'Enter') {window.location.href='/search?value='+this.value}">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+
+    <% data.forEach(element => { %>
+    <article class="card mt-3" style="      border: none;
+">
+        <div class="card-body centered-card">
+            <form action="/ganti" method="post">
+                <button class="btn btn-primary btn-lg" type="submit"><%= element.textBahasa %></button>
+            </form>
+            <h3 class="card-text text-break"><%= element.tj %></h3>
+            <h3 class="card-text text-break" style="font-family: rlabel;"><%= element.jt %></h3>
+        </div>
+    </article>
+    <% }) %>
+</main>
+
+<footer class="container mt-4 text-center">
+  <h1 style="color: white;">Temukan lebih banyak fitur!</h1>
+  <a href="https://play.google.com/store/apps/details?id=org.kamusbahasarejang.kamusbahasarejang" style="background-color: black;" class="btn btn-primary">
+    <img src="https://cdn-icons-png.flaticon.com/512/732/732208.png" alt="Play Store Icon" class="playstore-icon"> Get it on Play Store
+  </a>
+</footer>
+
+<style>
+  .playstore-icon {
+    height: 24px; /* Adjust the height as needed */
+    width: auto;
+    margin-right: 8px; /* Add some spacing between the icon and text */
+  }
+  @media (max-width: 576px) {
+            .center-heading {
+                font-size: 24px;
+            }
+        }
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

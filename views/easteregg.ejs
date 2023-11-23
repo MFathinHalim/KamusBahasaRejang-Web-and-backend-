@@ -1,0 +1,120 @@
+<!DOCTYPE html>Code<html>
+          <head>
+            <title>Easter Egg</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="a.png" type="image/x-icon">
+
+          </head>
+          <style>
+    @font-face {
+        font-family: rlabel;
+        src: url(bangkahulu.ttf);
+    }
+    :root {
+        --primary-color: #DD5F54;
+        --secondary-color: #B5483F;
+        --accent-color: #E2766C;
+        --highlight-color: #E90709;
+        --dark-color: #BA4541;
+    }
+    body {
+        background-color: var(--primary-color);
+    }
+    .custom-card {
+        max-width: 200px;
+        margin: 0 auto;
+    }
+
+    .custom-card img {
+        height: auto;
+        max-height: 200px;
+        width: auto;
+        max-width: 200px;
+        box-shadow: none;
+        object-fit: contain;
+    }
+
+    .custom-form input {
+        width: 100%;
+    }
+
+    .centered-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .navbar {
+        background-color: var(--secondary-color);
+    }
+    .navbar-brand {
+        color: white;
+        font-weight: bold;
+    }
+    main.container {
+        color: white;
+    }
+    .btn-primary {
+        background-color: var(--accent-color);
+        border-color: var(--secondary-color);
+    }
+    .btn-primary:hover {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+    }
+    .btn-primary:active {
+        background-color: var(--highlight-color);
+        border-color: var(--highlight-color);
+    }
+    .card {
+        background-color: var(--dark-color);
+        color: white;
+    }
+    .center-heading {
+        text-align: center;
+    }
+    .cat-image {
+      max-width: 600px;
+      height: auto;
+      margin: 20px auto;
+    }
+</style>
+          <body class="text-white">
+          <header>
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+        <a class="navbar-brand" href="#">
+            <img src="a.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Kamus Rejang Kito</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="http://kamus-rejang-kito.mfathinhalim.repl.co/">Home</a>
+            <a class="nav-item nav-link" href="/database">Kamus bacaan dan Tambahkan Kata!</a>
+            <a class="nav-item nav-link" href="/kaganga">Kaganga!</a>
+          </div>
+        </div>
+      </nav>
+</header>
+
+          <article class="card mt-3 centered-card">
+          
+        <div class="card-body centered-card">
+        <img class="cat-image rounded" src="https://i.pinimg.com/originals/90/cc/1e/90cc1eaca40b8ad9008e87a8b38df44a.jpg" alt="Cute Cat">
+            <h1>H- Halo!</h1>
+            <button class="btn btn-primary btn-lg" onclick="redirectToDatabase()">Kembali</button>
+        </div>
+        
+        <h1>MADE BY M.FATHIN HALIM</h1>
+    </article>
+
+    
+            
+            <script>
+              function redirectToDatabase() {
+                window.location.href = '/';
+              }
+            </script>
+          </body>
+          </html>

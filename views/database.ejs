@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kamus Rejang Kito</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" href="a.png" type="image/x-icon">
+    <style>
+        html{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
+    </style>
+</head>
+<%- include('header.ejs') -%>
+
+    <div class="container mt-4">
+        <form class="card p-3 text-center" action="/post-database" method="post" id="popup">
+            <h2>Tambahkan Kata yang Tidak Ada!</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" name="Indonesia" id="Indonesia" placeholder="Indonesia" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="Rejang" id="Rejang" placeholder="Rejang" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary">Tambahkan!</button><!--Tombol Post-->
+        </form>
+
+        <div class="card mt-4">
+            <h3 class="card-header">Kamus Bacaan</h3>
+            <% data.forEach(element=> { %>
+                <article class="card-body">
+                    <h3>Indonesia: <%= element.Indonesia %></h3>
+                    <h3>Rejang: <%= element.Rejang %></h3>
+                </article>
+                <hr class="hr">
+            <% }) %>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
