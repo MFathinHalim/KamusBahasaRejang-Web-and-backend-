@@ -54,21 +54,15 @@ async function post(data, Indonesia, Rejang) {
 
 
 var notes = [];
-mainModel.find({}, null, { sort: { like: -1 } }).then(docs => { notes = docs })
-
-/*() 
-
-sql = 'SELECT * FROM Table1';
-db.all(sql, [], (err, rows) => {
-  if (err) return console.error(err.message);
-
-  // For each note, query the comment table to see if there are any comments associated with it
-  rows.forEach((row) => {
-    mainModel.create({Indonesia: row.Indo, Rejang: row.Rejang})
-  });
-});*/
-
-
+mainModel.find({}, '_id Indonesia Rejang')
+    .then(docs => {
+        // Now the 'notes' array will contain objects with '_id', 'Indonesia', and 'Rejang' fields
+        notes = docs;
+        console.log(notes)
+    })
+    .catch(error => {
+        console.error(error);
+    });
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -96,19 +90,76 @@ app.get("/", function(req, res) {
     notes: notes
   })
 })
+
+app.get("/atmin", function(req, res) {
+
+  res.render("atmin", {
+    data: notes
+  })
+})
+
+app.get("/delete/:id", function(req, res) {
+  data = data.filter((obj) => obj.id !== req.params.id); // Filter the data
+    // Delete the article from the 'mainModel'
+  mainModel
+    .deleteOne({ id: req.params.id })
+    .then(function () {
+      console.log("deleted"); // Success
+    })
+    .catch(function (error) {
+      console.log(error); // Failure
+    });
+    res.redirect("/atmin")
+});
+
+app.post("/edit/:id", async function(req, res) {
+    try {
+        const acceptedData = {
+            Indonesia: req.body.indo,
+            Rejang: req.body.rejang,
+        };
+
+        const existingData = await mainModel.findOneAndUpdate(
+            { _id: req.params.id },
+            acceptedData,
+            { new: true } // Return the updated document
+        );
+
+        if (!existingData) {
+            // If the document with the specified id doesn't exist, handle it accordingly
+            console.log("Document not found.");
+            return res.redirect("/database");
+        }
+
+        // Update the data in the 'notes' array
+        const existingDataIndex = notes.findIndex((obj) => obj._id.toString() === req.params.id);
+
+        if (existingDataIndex !== -1) {
+            // Update the 'notes' array with the new data
+            notes[existingDataIndex].Indonesia = existingData.Indonesia;
+            notes[existingDataIndex].Rejang = existingData.Rejang;
+        }
+
+        console.log(existingDataIndex);
+        console.log(existingData);
+        console.log(notes)
+        res.redirect("/database");
+
+    } catch (error) {
+        console.error(error);
+        res.redirect("/database"); // Handle errors accordingly
+    }
+});
+
+
 app.get("/database", function(req, res) {
 
   res.render("database", {
     data: notes
   })
 })
-/**
- * @param {mainModel} model 
- */
 const badWordsString = process.env.katakasar;
 const badWords = badWordsString.split(',');
-
-
 
 app.post("/post-database", async function(req, res) {
   // Assign values from request body
@@ -124,8 +175,6 @@ app.post("/post-database", async function(req, res) {
   } else {
     res.redirect("/database");
   }
-
-
 });
 
 
@@ -191,38 +240,23 @@ app.get("/kaganga", (req, res) => {
 app.post("/search2", (req, res) => {
   const input = req.body.value.toLowerCase();
   const mode = req.body.mode;
-
+  var searchData = data.map(obj => ({ ...obj })); 
   if (mode == 0) {
-    /*db.get("SELECT Rejang FROM Table1 WHERE Indo='"+input+"'", function(err, row) {
-
-        
-        data[0].tj = input;
-        data[0].jt = kaganga(input);
-        if(row!==undefined){
-            data[0].tj = row.Rejang;
-            data[0].jt = kaganga(row.Rejang);
-        }
-        res.json({
-            tj: data[0].tj,
-            jt: data[0].jt
-        });
-    });*/
-
     mainModel.findOne({ Indonesia: input })
       .then((doc) => {
 
 
-        data[0].tj = input;
-        data[0].jt = kaganga(input);
+        searchData[0].tj = input;
+        searchData[0].jt = kaganga(input);
 
         if (doc !== null) {
-          data[0].tj = doc.Rejang;
-          data[0].jt = kaganga(doc.Rejang);
+          searchData[0].tj = doc.Rejang;
+          searchData[0].jt = kaganga(doc.Rejang);
         }
 
         res.json({
-          tj: data[0].tj,
-          jt: data[0].jt
+          tj: searchData[0].tj,
+          jt: searchData[0].jt
         });
       });
 
@@ -230,16 +264,16 @@ app.post("/search2", (req, res) => {
     mainModel.findOne({ Rejang: input })
       .then((doc) => {
 
-        data[0].tj = input;
-        data[0].jt = kaganga(input);
+        searchData[0].tj = input;
+        searchData[0].jt = kaganga(input);
 
         if (doc !== null) {
-          data[0].tj = doc.Indonesia;
-          data[0].jt = kaganga(doc.Indonesia);
+          searchData[0].tj = doc.Indonesia;
+          searchData[0].jt = kaganga(doc.Indonesia);
         }
         res.json({
-          tj: data[0].tj,
-          jt: data[0].jt
+          tj: searchData[0].tj,
+          jt: searchData[0].jt
         });
       });
   }
@@ -262,4 +296,3 @@ mongoose.connect(uri, {
   .catch((error) => {
     console.error('Database connection error:', error);
   });
-

@@ -1,43 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <title>Kamus Rejang Kito</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="icon" href="a.png" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="icon" href="a.png" type="image/x-icon" />
     <style>
-        html{
-            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-        }
+      html {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      }
     </style>
-</head>
-<%- include('header.ejs') -%>
+  </head>
+  <body>
+    <%- include('header.ejs') -%>
 
     <div class="container mt-4">
-        <form class="card p-3 text-center" action="/post-database" method="post" id="popup">
-            <h2>Tambahkan Kata yang Tidak Ada!</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" name="Indonesia" id="Indonesia" placeholder="Indonesia" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="Rejang" id="Rejang" placeholder="Rejang" autocomplete="off">
-            </div>
-            <button type="submit" class="btn btn-primary">Tambahkan!</button><!--Tombol Post-->
-        </form>
-
-        <div class="card mt-4">
-            <h3 class="card-header">Kamus Bacaan</h3>
-            <% data.forEach(element=> { %>
-                <article class="card-body">
-                    <h3>Indonesia: <%= element.Indonesia %></h3>
-                    <h3>Rejang: <%= element.Rejang %></h3>
-                </article>
-                <hr class="hr">
-            <% }) %>
+      <form
+        class="card p-3 text-center"
+        action="/post-database"
+        method="post"
+        id="popup"
+      >
+        <h2>Tambahkan Kata yang Tidak Ada!</h2>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="Indonesia"
+            id="Indonesia"
+            placeholder="Indonesia"
+            autocomplete="off"
+          />
         </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="Rejang"
+            id="Rejang"
+            placeholder="Rejang"
+            autocomplete="off"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Tambahkan!</button
+        ><!--Tombol Post-->
+      </form>
+
+      <div class="card mt-4">
+        <h3 class="card-header">Kamus Bacaan</h3>
+        <% data.forEach((element, index) => { %>
+    <article class="card-body">
+        <h3>Indonesia: <%= element.Indonesia %></h3>
+        <h3>Rejang: <%= element.Rejang %></h3>
+        <a href="#" class="btn btn-warning btn-rounded rounded-pill"
+            style="background: #DC8686 !important; border: none; color: white;"
+            data-toggle="modal"
+            data-target="#editModal<%= index %>"
+            data-entry-id="<%= element._id %>">Edit</a>
+            
+    </article>
+    <hr class="hr" />
+    <div class="modal fade" id="editModal<%= index %>"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="editModalLabel<%= index %>"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel<%= index %>">Edit Entry</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit form goes here -->
+                    <form action="/edit/<%= element.id %>" method="post" id="editForm">
+                        <input type="hidden" name="entryId" id="editEntryId<%= index %>" />
+                        <div class="form-group">
+                            <label for="editIndonesia">Indonesia</label>
+                            <input type="text" class="form-control" name="indo" id="editIndonesia<%= index %>"
+                                value="<%= element.Indonesia %>" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <label for="editRejang">Rejang</label>
+                            <input type="text" class="form-control" name="rejang" id="editRejang<%= index %>"
+                                value="<%= element.Rejang %>" autocomplete="off" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<% }) %>
+
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+
+    <script>
+      $(document).ready(function () {
+        // Handle the click event of the "Edit" button
+        $(".btn-warning").click(function () {
+          // Get the entry ID from the data attribute
+          var entryId = $(this).data("entry-id");
+
+          // Fetch the corresponding data and populate the form fields
+          // You need to implement the actual data fetching based on entryId
+          // Replace the comment with your implementation
+          // var entryData = /* Fetch data based on entryId */;
+          // $('#editEntryId').val(entryId);
+          // $('#editIndonesia').val(entryData.Indonesia);
+          // $('#editRejang').val(entryData.Rejang);
+        });
+
+        // Handle the modal close event to clear form fields
+        $("#editModal").on("hidden.bs.modal", function () {
+          $("#editForm")[0].reset();
+        });
+      });
+    </script>
+  </body>
 </html>
