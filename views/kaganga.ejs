@@ -14,12 +14,21 @@
 <main class="container mt-4">
     <h3 class="center-heading"><img src="a.png" width="50" height="50" class="d-inline-block align-top" alt="Logo"> Kamus Rejang Kito!</h3>
   <br>
-    <form action="/searchKaganga" method="post" class="custom-form">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" autocomplete="off">
-            <button class="btn btn-primary" type="submit">Cari</button>
-        </div>
+    <form action="/searchKaganga" method="get" class="custom-form" onsubmit="updateAction()">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" id="searchInput" autocomplete="off">
+        <button class="btn btn-primary" type="submit">Cari</button>
+    </div>
     </form>
+
+    <script>
+        function updateAction() {
+            var inputValue = document.getElementById('searchInput').value;
+            var form = document.querySelector('.custom-form');
+            form.action = '/searchKaganga?' + encodeURIComponent(inputValue);
+        }
+    </script>
+
 
     <% data.forEach(element => { %>
     <article class="card mt-3">

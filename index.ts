@@ -139,9 +139,6 @@ app.post("/edit/:id", async function(req, res) {
             notes[existingDataIndex].Indonesia = existingData.Indonesia;
             notes[existingDataIndex].Rejang = existingData.Rejang;
         }
-
-        console.log(existingDataIndex);
-        console.log(existingData);
         res.redirect("/database");
 
     } catch (error) {
@@ -221,12 +218,16 @@ app.get("/search", (req, res) => {
     }
   }
 });
-app.post("/searchKaganga", (req, res) => {
-  const input = req.body.value.toLowerCase()
-  dataKaganga[0].tj = input;
-  dataKaganga[0].jt = kaganga(input);
+app.get("/searchKaganga", (req, res) => {
+  var input = req.query.value.toLowerCase()
+  var searchData = dataKaganga.map(obj => ({ ...obj })); 
 
-  res.redirect('/kaganga')
+  searchData[0].tj = input;
+  searchData[0].jt = kaganga(input);
+
+  res.render("  kaganga", {
+    data: searchData
+  })
 
 
 })
