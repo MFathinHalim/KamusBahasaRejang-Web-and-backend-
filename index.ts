@@ -225,7 +225,7 @@ app.get("/searchKaganga", (req, res) => {
   searchData[0].tj = input;
   searchData[0].jt = kaganga(input);
 
-  res.render("  kaganga", {
+  res.render("kaganga", {
     data: searchData
   })
 
