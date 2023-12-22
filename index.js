@@ -251,7 +251,7 @@ mainModel
 });
 var app = express();
 app.use(cors({
-    origin: "http://localhost:8080",
+    origin: "https://kamusrejang.rejanglebongkab.go.id/",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
