@@ -251,7 +251,7 @@ mainModel
 });
 var app = express();
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:8080",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
@@ -437,7 +437,7 @@ app.post("/api/edit/:id", function (req, res) {
         return __generator(this, function (_a) {
             try {
                 kamus.edit(req);
-                res.redirect("/api/database");
+                res.send(202);
             }
             catch (error) {
                 console.error(error);
@@ -487,7 +487,7 @@ app.post("/api/post-database", function (req, res) {
                         badword = false;
                     }
                     else {
-                        res.redirect("/api/database");
+                        res.send(202);
                     }
                     return [2 /*return*/];
             }

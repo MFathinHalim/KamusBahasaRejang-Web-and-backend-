@@ -14,5 +14,4 @@ RUN npm install
 COPY . .
 
 # Menjalankan aplikasi saat kontainer dimulai
-CMD [ "node", "app.js" ]
-
+CMD ["npm", "run", "dev"]
