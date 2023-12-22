@@ -24,15 +24,13 @@
 
 <main class="container mt-4">
     <h3 class="center-heading" style="font-family:'Montserrat'"><img src="../../a.png" width="50" height="50" class="d-inline-block align-top" alt="Logo"> Kamus Rejang Kito!</h3>
-  <br>
+    <br>
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" autocomplete="off" onkeydown="if(event.key === 'Enter') {window.location.href='/search?value='+this.value}">
         <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
     </div>
-
     <% data.forEach(element => { %>
-    <article class="card mt-3" style="      border: none;
-">
+    <article class="card mt-3" style="border: none;">
         <div class="card-body centered-card">
             <form action="/ganti" method="post">
                 <button class="btn btn-primary btn-lg" type="submit"><%= element.textBahasa %></button>
@@ -41,7 +39,7 @@
             <h3 class="card-text text-break" style="font-family: rlabel;"><%= element.jt %></h3>
         </div>
     </article>
-    <% }) %>
+    <% }); %>
 </main>
 
 <footer class="container mt-4 text-center">
