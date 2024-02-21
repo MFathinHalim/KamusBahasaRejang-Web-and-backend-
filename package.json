@@ -6,6 +6,7 @@
   "scripts": {
     "start:server": "tsc index.ts && node index.js",
     "start:client": "cd client && npm start",
+    "build:client": "cd client && npm run build && cd ..",
     "start": "concurrently \"node index.js\" \"npm run start:client\""
   },
   "author": "",

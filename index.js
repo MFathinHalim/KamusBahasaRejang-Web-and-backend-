@@ -155,7 +155,7 @@ var kkbr = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 9, , 10]);
-                        containsBadWord = badWords.some(function (word) {
+                        containsBadWord = badword.some(function (word) {
                             var regex = new RegExp("\\b".concat(word, "\\b"), "i");
                             return regex.test(Indonesia) || regex.test(Rejang);
                         });
@@ -257,18 +257,116 @@ app.use(cors({
 }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", function (req, res) {
+    res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
-app.post("/ganti", function (req, res) {
-    kamus.ganti();
-    res.redirect("/");
+/*app.post("/ganti", (req, res) => {
+  kamus.ganti();
+  res.redirect("/");
 });
 app.get("/", function (req, res) {
-    res.render("home", kamus.home());
+  res.render("home", kamus.home());
 });
-app.get("/atmin", function (req, res) {
+
+app.get("/atmin", async function (req, res) {
+  try {
+    const data = await kamus.atmin();
+    console.log("Data:", data);
+    res.render("atmin", { data });
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/delete/:id", function (req, res) {
+  kamus.delete(req.params.id);
+  res.redirect("/atmin");
+});
+
+app.post("/edit/:id", async function (req, res) {
+  try {
+    kamus.edit(req);
+    res.redirect("/database");
+  } catch (error) {
+    console.error(error);
+    res.redirect("/database"); // Handle errors accordingly
+  }
+});
+
+app.get("/database", async function (req, res) {
+  try {
+    const data = await kamus.atmin();
+    console.log("Data:", data);
+    res.render("database", { data });
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+const badWordsString: any = process.env.katakasar;
+const badWords = badWordsString.split(",");
+
+app.post("/post-database", async function (req, res) {
+  // Assign values from request body
+  const Indonesia = req.body.Indonesia;
+  const Rejang = req.body.Rejang;
+
+  // Call the function
+  await kamus.post(Indonesia, Rejang, badword);
+
+  if (badword == true) {
+    badword = false;
+    res.render("badword");
+  } else {
+    res.send(200);
+  }
+});
+
+app.get("/search", async (req, res) => {
+  try {
+    var input = req.query.value.toLowerCase();
+    const search = await kamus.search(input);
+
+    if (input == "doma#0777") {
+      res.render("easteregg");
+    } else {
+      res.render("home", {
+        data: search,
+      });
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/searchKaganga", (req, res) => {
+  var input = req.query.value.toLowerCase();
+
+  res.render("kaganga", {
+    data: kamus.searchKaganga(input),
+  });
+});
+app.get("/kaganga", (req, res) => {
+  res.render("kaganga", { data: kamus.kaganga() });
+});
+*/
+//=============================AP
+app.post("/api/ganti", function (req, res) {
+    kamus.ganti();
+    res.redirect("/api/");
+});
+app.get("/api/", function (req, res) {
+    res.json(kamus.home());
+});
+app.get("/api/atmin", function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var data_1, error_2;
         return __generator(this, function (_a) {
@@ -279,148 +377,11 @@ app.get("/atmin", function (req, res) {
                 case 1:
                     data_1 = _a.sent();
                     console.log("Data:", data_1);
-                    res.render("atmin", { data: data_1 });
+                    res.json({ data: data_1 });
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();
                     console.error("An error occurred:", error_2);
-                    res.status(500).send("Internal Server Error");
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-});
-app.get("/delete/:id", function (req, res) {
-    kamus.delete(req.params.id);
-    res.redirect("/atmin");
-});
-app.post("/edit/:id", function (req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            try {
-                kamus.edit(req);
-                res.redirect("/database");
-            }
-            catch (error) {
-                console.error(error);
-                res.redirect("/database"); // Handle errors accordingly
-            }
-            return [2 /*return*/];
-        });
-    });
-});
-app.get("/database", function (req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var data_2, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, kamus.atmin()];
-                case 1:
-                    data_2 = _a.sent();
-                    console.log("Data:", data_2);
-                    res.render("database", { data: data_2 });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_3 = _a.sent();
-                    console.error("An error occurred:", error_3);
-                    res.status(500).send("Internal Server Error");
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-});
-var badWordsString = process.env.katakasar;
-var badWords = badWordsString.split(",");
-app.post("/post-database", function (req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var Indonesia, Rejang;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    Indonesia = req.body.Indonesia;
-                    Rejang = req.body.Rejang;
-                    // Call the function
-                    return [4 /*yield*/, kamus.post(Indonesia, Rejang, badword)];
-                case 1:
-                    // Call the function
-                    _a.sent();
-                    if (badword == true) {
-                        badword = false;
-                        res.render("badword");
-                    }
-                    else {
-                        res.send(200);
-                    }
-                    return [2 /*return*/];
-            }
-        });
-    });
-});
-app.get("/search", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var input, search, error_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                input = req.query.value.toLowerCase();
-                return [4 /*yield*/, kamus.search(input)];
-            case 1:
-                search = _a.sent();
-                if (input == "doma#0777") {
-                    res.render("easteregg");
-                }
-                else {
-                    res.render("home", {
-                        data: search,
-                    });
-                }
-                return [3 /*break*/, 3];
-            case 2:
-                error_4 = _a.sent();
-                console.error("An error occurred:", error_4);
-                res.status(500).send("Internal Server Error");
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); });
-app.get("/searchKaganga", function (req, res) {
-    var input = req.query.value.toLowerCase();
-    res.render("kaganga", {
-        data: kamus.searchKaganga(input),
-    });
-});
-app.get("/kaganga", function (req, res) {
-    res.render("kaganga", { data: kamus.kaganga() });
-});
-//=============================API
-app.post("/api/ganti", function (req, res) {
-    kamus.ganti();
-    res.redirect("/api/");
-});
-app.get("/api/", function (req, res) {
-    res.json(kamus.home());
-});
-app.get("/api/atmin", function (req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var data_3, error_5;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, kamus.atmin()];
-                case 1:
-                    data_3 = _a.sent();
-                    console.log("Data:", data_3);
-                    res.json({ data: data_3 });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_5 = _a.sent();
-                    console.error("An error occurred:", error_5);
                     res.status(500).send("Internal Server Error");
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
@@ -449,20 +410,20 @@ app.post("/api/edit/:id", function (req, res) {
 });
 app.get("/api/database", function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var data_4, error_6;
+        var data_2, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, kamus.atmin()];
                 case 1:
-                    data_4 = _a.sent();
-                    console.log("Data:", data_4);
-                    res.json({ data: data_4 });
+                    data_2 = _a.sent();
+                    console.log("Data:", data_2);
+                    res.json({ data: data_2 });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_6 = _a.sent();
-                    console.error("An error occurred:", error_6);
+                    error_3 = _a.sent();
+                    console.error("An error occurred:", error_3);
                     res.status(500).send("Internal Server Error");
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
@@ -495,7 +456,7 @@ app.post("/api/post-database", function (req, res) {
     });
 });
 app.get("/api/search", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var input, search, error_7;
+    var input, search, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -509,8 +470,8 @@ app.get("/api/search", function (req, res) { return __awaiter(_this, void 0, voi
                 });
                 return [3 /*break*/, 3];
             case 2:
-                error_7 = _a.sent();
-                console.error("An error occurred:", error_7);
+                error_4 = _a.sent();
+                console.error("An error occurred:", error_4);
                 res.status(500).send("Internal Server Error");
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];

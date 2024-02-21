@@ -114,7 +114,7 @@ class kkbr {
     Rejang = Rejang.toLowerCase();
     try {
       // Validasi kata kasar
-      const containsBadWord = badWords.some((word) => {
+      const containsBadWord = badword.some((word) => {
         const regex = new RegExp(`\\b${word}\\b`, "i");
         return regex.test(Indonesia) || regex.test(Rejang);
       });
@@ -199,6 +199,11 @@ app.use(
 );
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
+});
 
 app.use(bodyParser.json());
 app.use(
@@ -207,7 +212,7 @@ app.use(
   })
 );
 
-app.post("/ganti", (req, res) => {
+/*app.post("/ganti", (req, res) => {
   kamus.ganti();
   res.redirect("/");
 });
@@ -299,8 +304,8 @@ app.get("/searchKaganga", (req, res) => {
 app.get("/kaganga", (req, res) => {
   res.render("kaganga", { data: kamus.kaganga() });
 });
-
-//=============================API
+*/
+//=============================AP
 app.post("/api/ganti", (req, res) => {
   kamus.ganti();
   res.redirect("/api/");
