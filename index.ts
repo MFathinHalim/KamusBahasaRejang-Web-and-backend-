@@ -399,7 +399,7 @@ mongoose
     serverSelectionTimeoutMS: 5000, // Increase the server selection timeout
   })
   .then(() => {
-    app.listen(5050, (req, res) => {
+    app.listen(8080, (req, res) => {
       Host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
       console.log("SERVER SUDAH BERJALAN");
     });
