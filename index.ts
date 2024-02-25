@@ -379,10 +379,11 @@ app.post("/search2", async (req, res) => {
   try {
     var input = req.body.value;
     const search = await kamus.search(input, req.body.mode);
-
+    console.log(search)
+    console.log(search[0].tj)
     res.json({
-      tj: search.tj,
-      jt:search.jt,
+      tj: search[0].tj,
+      jt:search[0].jt,
     });
   } catch (error) {
     console.error("An error occurred:", error);

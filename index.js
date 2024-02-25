@@ -483,9 +483,11 @@ app.post("/search2", function (req, res) { return __awaiter(_this, void 0, void 
                 return [4 /*yield*/, kamus.search(input, req.body.mode)];
             case 1:
                 search = _a.sent();
+                console.log(search);
+                console.log(search[0].tj);
                 res.json({
-                    tj: search.tj,
-                    jt: search.jt
+                    tj: search[0].tj,
+                    jt: search[0].jt
                 });
                 return [3 /*break*/, 3];
             case 2:
