@@ -375,7 +375,7 @@ app.get("/api/search", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-app.get("/search2", async (req, res) => {
+app.post("/search2", async (req, res) => {
   try {
     var input = req.query.value.toLowerCase();
     const search = await kamus.search(input);
