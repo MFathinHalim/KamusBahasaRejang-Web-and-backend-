@@ -189,14 +189,14 @@ var kkbr = /** @class */ (function () {
             });
         });
     };
-    kkbr.prototype.search = function (input) {
+    kkbr.prototype.search = function (input, modee) {
         return __awaiter(this, void 0, void 0, function () {
             var mode, searchData, doc, d, doc, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 5, , 6]);
-                        mode = this.data[0].mode;
+                        mode = modee || this.data[0].mode;
                         searchData = this.data.map(function (obj) { return (__assign({}, obj)); });
                         if (!(mode == 0)) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.mainModel.findOne({ Indonesia: input })];
@@ -479,8 +479,8 @@ app.post("/search2", function (req, res) { return __awaiter(_this, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                input = req.query.value.toLowerCase();
-                return [4 /*yield*/, kamus.search(input)];
+                input = req.body.value;
+                return [4 /*yield*/, kamus.search(input, req.body.mode)];
             case 1:
                 search = _a.sent();
                 res.json({

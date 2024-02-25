@@ -139,9 +139,9 @@ class kkbr {
       console.error(err);
     }
   }
-  async search(input) {
+  async search(input, modee) {
     try {
-      const mode = this.data[0].mode;
+      const mode = modee || this.data[0].mode;
       var searchData = this.data.map((obj) => ({ ...obj }));
 
       if (mode == 0) {
@@ -377,8 +377,8 @@ app.get("/api/search", async (req, res) => {
 });
 app.post("/search2", async (req, res) => {
   try {
-    var input = req.query.value.toLowerCase();
-    const search = await kamus.search(input);
+    var input = req.body.value;
+    const search = await kamus.search(input, req.body.mode);
 
     res.json({
       data: search,
