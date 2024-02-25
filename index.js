@@ -24,7 +24,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -63,13 +63,13 @@ var data = [
         tj: "Arti Muncul Disini",
         jt: "kgf",
         mode: 0,
-        textBahasa: "Indonesia Ke Rejang",
+        textBahasa: "Indonesia Ke Rejang"
     },
 ];
 var dataKaganga = [
     {
         tj: "Arti Muncul Disini",
-        jt: "kgf",
+        jt: "kgf"
     },
 ];
 var badword = false;
@@ -93,7 +93,7 @@ var kkbr = /** @class */ (function () {
     kkbr.prototype.home = function () {
         return {
             data: this.data,
-            notes: this.notes,
+            notes: this.notes
         };
     };
     kkbr.prototype.atmin = function () {
@@ -102,7 +102,7 @@ var kkbr = /** @class */ (function () {
     kkbr.prototype.kaganga = function () {
         return this.dataKaganga;
     };
-    kkbr.prototype.delete = function (id) {
+    kkbr.prototype["delete"] = function (id) {
         this.data = this.data.filter(function (obj) { return obj.id !== id; }); // Filter the data
         this.notes = this.notes.filter(function (obj) { return obj._id !== id; }); // Filter the data
         // Delete the article from the 'mainModel'
@@ -110,8 +110,7 @@ var kkbr = /** @class */ (function () {
             .deleteOne({ id: id })
             .then(function () {
             console.log("deleted"); // Success
-        })
-            .catch(function (error) {
+        })["catch"](function (error) {
             console.log(error); // Failure
         });
     };
@@ -123,9 +122,9 @@ var kkbr = /** @class */ (function () {
                     case 0:
                         acceptedData = {
                             Indonesia: req.body.indo,
-                            Rejang: req.body.rejang,
+                            Rejang: req.body.rejang
                         };
-                        return [4 /*yield*/, this.mainModel.findOneAndUpdate({ _id: req.params.id }, acceptedData, { new: true } // Return the updated document
+                        return [4 /*yield*/, this.mainModel.findOneAndUpdate({ _id: req.params.id }, acceptedData, { "new": true } // Return the updated document
                             )];
                     case 1:
                         existingData = _a.sent();
@@ -245,25 +244,21 @@ mainModel
     // Now the 'notes' array will contain objects with '_id', 'Indonesia', and 'Rejang' fields
     notes = docs;
     kamus = new kkbr(data, mainModel, notes, dataKaganga);
-})
-    .catch(function (error) {
+})["catch"](function (error) {
     console.error(error);
 });
 var app = express();
 app.use(cors({
-    origin: "https://kamusrejang.rejanglebongkab.go.id/",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
+    credentials: true
 }));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(path.join(__dirname, "client/build")));
-app.get("*", function (req, res) {
-    res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
-});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true,
+    extended: true
 }));
 /*app.post("/ganti", (req, res) => {
   kamus.ganti();
@@ -390,7 +385,7 @@ app.get("/api/atmin", function (req, res) {
     });
 });
 app.get("/api/delete/:id", function (req, res) {
-    kamus.delete(req.params.id);
+    kamus["delete"](req.params.id);
     res.redirect("/api/atmin");
 });
 app.post("/api/edit/:id", function (req, res) {
@@ -466,7 +461,7 @@ app.get("/api/search", function (req, res) { return __awaiter(_this, void 0, voi
             case 1:
                 search = _a.sent();
                 res.json({
-                    data: search,
+                    data: search
                 });
                 return [3 /*break*/, 3];
             case 2:
@@ -481,25 +476,27 @@ app.get("/api/search", function (req, res) { return __awaiter(_this, void 0, voi
 app.get("/api/searchKaganga", function (req, res) {
     var input = req.query.value.toLowerCase();
     res.json({
-        data: kamus.searchKaganga(input),
+        data: kamus.searchKaganga(input)
     });
 });
 app.get("/api/kaganga", function (req, res) {
     res.json({ data: kamus.kaganga() });
+});
+app.get("*", function (req, res) {
+    res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
 });
 var uri = process.env.MONGODBURI;
 mongoose
     .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000, // Increase the server selection timeout
+    serverSelectionTimeoutMS: 5000
 })
     .then(function () {
-    app.listen(5050, function (req, res) {
+    app.listen(8080, function (req, res) {
         Host: process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
         console.log("SERVER SUDAH BERJALAN");
     });
-})
-    .catch(function (error) {
+})["catch"](function (error) {
     console.error("Database connection error:", error);
 });

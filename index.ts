@@ -192,7 +192,7 @@ mainModel
 const app = express();
 app.use(
   cors({
-    origin: "https://kamusrejang.rejanglebongkab.go.id/",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -200,10 +200,6 @@ app.use(
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(path.join(__dirname, "client/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
-});
 
 app.use(bodyParser.json());
 app.use(
@@ -389,6 +385,9 @@ app.get("/api/searchKaganga", (req, res) => {
 });
 app.get("/api/kaganga", (req, res) => {
   res.json({ data: kamus.kaganga() });
+});
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
 });
 
 const uri = process.env.MONGODBURI;
