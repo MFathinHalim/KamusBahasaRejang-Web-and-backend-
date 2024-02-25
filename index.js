@@ -473,7 +473,7 @@ app.get("/api/search", function (req, res) { return __awaiter(_this, void 0, voi
         }
     });
 }); });
-app.get("/search2", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.post("/search2", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var input, search, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
