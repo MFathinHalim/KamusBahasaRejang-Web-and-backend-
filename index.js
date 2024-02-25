@@ -484,7 +484,8 @@ app.post("/search2", function (req, res) { return __awaiter(_this, void 0, void 
             case 1:
                 search = _a.sent();
                 res.json({
-                    th: search.tj
+                    tj: search.tj,
+                    jt: search.jt
                 });
                 return [3 /*break*/, 3];
             case 2:
