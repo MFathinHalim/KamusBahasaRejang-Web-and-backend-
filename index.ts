@@ -375,6 +375,20 @@ app.get("/api/search", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+app.get("/search2", async (req, res) => {
+  try {
+    var input = req.query.value.toLowerCase();
+    const search = await kamus.search(input);
+
+    res.json({
+      data: search,
+    });
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 app.get("/api/searchKaganga", (req, res) => {
   var input = req.query.value.toLowerCase();

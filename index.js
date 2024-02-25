@@ -473,6 +473,29 @@ app.get("/api/search", function (req, res) { return __awaiter(_this, void 0, voi
         }
     });
 }); });
+app.get("/search2", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var input, search, error_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                input = req.query.value.toLowerCase();
+                return [4 /*yield*/, kamus.search(input)];
+            case 1:
+                search = _a.sent();
+                res.json({
+                    data: search
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                error_5 = _a.sent();
+                console.error("An error occurred:", error_5);
+                res.status(500).send("Internal Server Error");
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 app.get("/api/searchKaganga", function (req, res) {
     var input = req.query.value.toLowerCase();
     res.json({
