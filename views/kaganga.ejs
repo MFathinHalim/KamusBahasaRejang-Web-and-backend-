@@ -6,14 +6,18 @@
     <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="a.png" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
     <%- include('header.ejs') -%>
     <script>
       console.log("%c Made by M.Fathin Halim", "color: blue;")
     </script>
 
 <main class="container mt-4">
-    <h3 class="center-heading"><img src="a.png" width="50" height="50" class="d-inline-block align-top" alt="Logo"> Kamus Rejang Kito!</h3>
-  <br>
+  <h3 class="center-heading mb-4" style="font-family:'Montserrat'; font-weight:bolder; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <img src="../../a.png" width="50" height="50" alt="Logo">
+    Kamus Rejang Kito!
+</h3>
     <form action="/searchKaganga" method="get" class="custom-form" onsubmit="updateAction()">
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" id="searchInput" autocomplete="off">

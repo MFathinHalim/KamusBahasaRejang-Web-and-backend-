@@ -23,12 +23,24 @@
     </style>
 
 <main class="container mt-4">
-    <h3 class="center-heading" style="font-family:'Montserrat'"><img src="../../a.png" width="50" height="50" class="d-inline-block align-top" alt="Logo"> Kamus Rejang Kito!</h3>
-    <br>
+  <h3 class="center-heading mb-4" style="font-family:'Montserrat'; font-weight:bolder; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <img src="../../a.png" width="50" height="50" alt="Logo">
+    Kamus Rejang Kito!
+</h3>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" autocomplete="off" onkeydown="if(event.key === 'Enter') {window.location.href='/search?value='+this.value}">
-        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-    </div>
+      <input type="text" class="form-control" placeholder="Taruh Kata Disini" name="value" autocomplete="off" onkeydown="if(event.key === 'Enter') {searchFunction()}">
+      <button class="btn btn-primary" type="button" onclick="searchFunction()">
+          <i class="fa fa-search"></i>
+      </button>
+  </div>
+  
+  <script>
+      function searchFunction() {
+          const inputValue = document.querySelector('input[name="value"]').value;
+          window.location.href = '/search?value=' + inputValue;
+      }
+  </script>
+  
     <% data.forEach(element => { %>
     <article class="card mt-3" style="border: none;">
         <div class="card-body centered-card">
